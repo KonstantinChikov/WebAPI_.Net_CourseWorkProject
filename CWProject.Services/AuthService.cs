@@ -52,13 +52,6 @@ namespace CWProject.Services
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
-    /*
-            string plainPass = "NiakvaParola";
-            string hashedPass = BCrypt.Net.BCrypt.HashPassword(plainPass);
-            bool doTheyMath = BCrypt.Net.BCrypt.Verify(plainPass, hashedPass);
-            bool doTheyMath1 = BCrypt.Net.BCrypt.Verify(plainPass, "$2a$12$VfdIKpv4fLpyHXHl9ZeYv.VYn7gAR9aH9tdDHst2zGRU23Rx7LCLy");
-            var t = 1;
-    */
         }
 
         public bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)

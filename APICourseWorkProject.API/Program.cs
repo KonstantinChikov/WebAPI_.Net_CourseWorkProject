@@ -1,9 +1,11 @@
 using CWProject.Services;
 using CWProject.Services.Interfaces;
+using System.Data.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+//builder.Services.AddDbContext<DbContext_Name>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
