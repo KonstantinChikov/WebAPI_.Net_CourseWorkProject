@@ -5,6 +5,7 @@ using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore.Internal;
+using CWProject.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,8 +19,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IAuthService, AuthService>();//!!!!!!
+// services
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IVillasService, VillasService>();
 
+// repositories
+builder.Services.AddScoped<IVillasRepository, VillasRepository>();
+ 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
