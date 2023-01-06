@@ -63,9 +63,8 @@ namespace CWProject.Data.SeedData
                 return amenities;
             }
         }
-
-        /*
-         
+         /*
+          
         // Seed For Roles
         private static Dictionary<string, Role> roles;
         public static Dictionary<string, Role> Roles

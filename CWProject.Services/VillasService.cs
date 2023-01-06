@@ -1,5 +1,4 @@
-﻿using CWProject.Data.Repositories;
-using CWProject.Services.Interfaces;
+﻿using CWProject.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,7 @@ using Realms.Sync.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using CWProject.Data.Exceptions;
 using AppException = CWProject.Data.Exceptions.AppException;
+using CWProject.Data.Repositories.Interfaces;
 
 namespace CWProject.Services
 {

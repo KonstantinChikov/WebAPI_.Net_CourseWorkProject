@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CWProject.Data.Repositories
+namespace CWProject.Data.Repositories.Interfaces
 {
     public interface IVillasRepository
     {
