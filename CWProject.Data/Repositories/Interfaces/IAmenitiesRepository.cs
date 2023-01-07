@@ -1,21 +1,21 @@
 ﻿using CWProject.Models.DtoModels.AmenitiesDto;
 using CWProject.Models.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CWProject.Services.Interfaces
+namespace CWProject.Data.Repositories.Interfaces
 {
-    public interface IAmenitiesService
+    public interface IAmenitiesRepository
     {
         
-        List<AmenitiesModel> GetAll();
+        List<AmenitiesModel> GetAll { get; }
         AmenitiesModel GetById(int id);
-        Amenities Create(Amenities amenities);
-        void Update(Amenities user);
-        void Delete(int id); 
+        DbSet<Amenities> Amenities { get; }
+        void Save();
         
     }
 }

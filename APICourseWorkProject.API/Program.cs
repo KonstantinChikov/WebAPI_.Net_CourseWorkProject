@@ -25,10 +25,12 @@ builder.Services.AddSwaggerGen();
 // services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IVillasService, VillasService>();
+builder.Services.AddScoped<IAmenitiesService, AmenitiesService>();
 
 // repositories
 builder.Services.AddScoped<IVillasRepository, VillasRepository>();
- 
+builder.Services.AddScoped<IAmenitiesRepository, AmenitiesRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
