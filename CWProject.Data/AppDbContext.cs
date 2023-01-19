@@ -16,6 +16,7 @@ namespace CWProject.Data
         }
         public DbSet<Villas> Villas { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<Amenities> Amenities { get; set; }
         public DbSet<VillaAmenities> VillaAmenities { get; set; }
         public DbSet<LocationType> LocationTypes { get; set; }
