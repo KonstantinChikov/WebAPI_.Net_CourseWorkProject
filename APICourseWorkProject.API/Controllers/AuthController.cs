@@ -10,14 +10,14 @@ namespace APICourseWorkProject.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-
         private readonly IAuthService _authService;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
-
-        public AuthController(IAuthService authService, IMapper mapper)
+        public AuthController(IAuthService authService, IMapper mapper, IUserService userService)
         {
             _authService = authService;
             _mapper = mapper;
+            _userService = userService;
         }
 
 
@@ -37,12 +37,13 @@ namespace APICourseWorkProject.API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserDto request)
         {
-            var user = _mapper.Map<User>(request);
             // check if Username is here already
-            if (user.Username != request.UserName)
+            if (!_userService.ExistsByUsername(request.UserName))
             {
                 return BadRequest(" User NOT found ");
-            } 
+            }
+
+            var user = _userService.GetByUsername(request.UserName);
 
             // check password
             if(!_authService.VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))

@@ -21,10 +21,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseSqlServer(connectionString));
 
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 //Authorization
@@ -52,19 +49,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
 // services
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped<IVillasService, VillasService>();
 builder.Services.AddScoped<IAmenitiesService, AmenitiesService>();
 builder.Services.AddScoped<ILocationTypeService, LocationTypeService>();
+builder.Services.AddScoped<IVillaAmenitiesService, VillaAmenitiesService>();
 
 // repositories
 builder.Services.AddScoped<IVillasRepository, VillasRepository>();
 builder.Services.AddScoped<IAmenitiesRepository, AmenitiesRepository>();
 builder.Services.AddScoped<ILocationTypeRepository, LocationTypeRepository>();
-
+builder.Services.AddScoped<IVillaAmenitiesRepository, VillaAmenitiesRepository>();
 
 var app = builder.Build();
 

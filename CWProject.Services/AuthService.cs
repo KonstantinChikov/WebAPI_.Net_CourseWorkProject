@@ -42,8 +42,6 @@ namespace CWProject.Services
             return jwt;
         }
 
-
-
         //Password Create and Verify methods
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {

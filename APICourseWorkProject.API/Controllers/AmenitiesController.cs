@@ -16,12 +16,12 @@ namespace APICourseWorkProject.API.Controllers
     {
         private readonly IAmenitiesService _amenitiesService;
         private readonly IMapper _mapper;
-
         public AmenitiesController(IAmenitiesService amenitiesService, IMapper mapper)
         {
             _amenitiesService = amenitiesService;
             _mapper = mapper;
         }
+
         
         [AllowAnonymous]
         [HttpGet]

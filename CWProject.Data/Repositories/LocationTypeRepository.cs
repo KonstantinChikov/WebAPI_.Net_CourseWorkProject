@@ -18,6 +18,7 @@ namespace CWProject.Data.Repositories
             _appDbContext = appDbContext;
         }
 
+
         public List<LocationTypeModel> GetAllLocations => _appDbContext.LocationTypes.
             Select(x => new LocationTypeModel()
             {

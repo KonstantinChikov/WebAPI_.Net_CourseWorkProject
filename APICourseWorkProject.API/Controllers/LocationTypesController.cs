@@ -15,12 +15,12 @@ namespace APICourseWorkProject.API.Controllers
     {
         private readonly ILocationTypeService _locationTypeService;
         private readonly IMapper _mapper;
-
         public LocationTypesController(ILocationTypeService locationTypeService, IMapper mapper)
         {
             _locationTypeService = locationTypeService;
             _mapper = mapper;
         }
+
 
         [AllowAnonymous]
         [HttpGet]
