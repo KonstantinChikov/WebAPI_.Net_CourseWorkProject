@@ -11,7 +11,7 @@ namespace CWProject.Data.Repositories.Interfaces
 {
     public interface IVillasRepository
     {
-        List<VillasModel> GetAll { get; }
+        List<Villas> GetAll { get; }
         VillasModel GetById(int id);
         DbSet<Villas> Villas { get; }
         User FindUser(int id);

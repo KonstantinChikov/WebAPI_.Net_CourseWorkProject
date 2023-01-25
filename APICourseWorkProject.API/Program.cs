@@ -21,6 +21,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseSqlServer(connectionString));
 
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -54,12 +55,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // services
 builder.Services.AddScoped<IAuthService, AuthService>();
+
 builder.Services.AddScoped<IVillasService, VillasService>();
 builder.Services.AddScoped<IAmenitiesService, AmenitiesService>();
+builder.Services.AddScoped<ILocationTypeService, LocationTypeService>();
 
 // repositories
 builder.Services.AddScoped<IVillasRepository, VillasRepository>();
 builder.Services.AddScoped<IAmenitiesRepository, AmenitiesRepository>();
+builder.Services.AddScoped<ILocationTypeRepository, LocationTypeRepository>();
+
 
 var app = builder.Build();
 

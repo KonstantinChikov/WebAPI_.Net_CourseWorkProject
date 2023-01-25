@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using CWProject.Data.Exceptions;
 using AppException = CWProject.Data.Exceptions.AppException;
 using CWProject.Data.Repositories.Interfaces;
+using CWProject.Models.DtoModels.AmenitiesDto;
+using AutoMapper;
 
 namespace CWProject.Services
 {
@@ -19,11 +21,13 @@ namespace CWProject.Services
     {
         
         private readonly IVillasRepository _villasRepository;
-        public VillasService(IVillasRepository villasRepository)
+        private readonly IMapper _mapper;
+        public VillasService(IVillasRepository villasRepository, IMapper mapper)
         {
             _villasRepository = villasRepository;
+            _mapper = mapper;
         }
-        
+
         public Villas Create(Villas villa, int userId)
         {
             //throw new NotImplementedException();
@@ -82,18 +86,7 @@ namespace CWProject.Services
 
         
         public Villas FindVilla(int id) => _villasRepository.Villas.Include(x => x.User).SingleOrDefault(x => x.Id == id);
-        //{
-            //throw new NotImplementedException();
-        //}
-
-        public List<VillasModel> GetAll() => _villasRepository.GetAll;
-        //{
-            //throw new NotImplementedException();
-        //}
-
+        public List<VillasModel> GetAll() => _villasRepository.GetAll.Select(_mapper.Map<VillasModel>).ToList();
         public VillasModel GetById(int id) => _villasRepository.GetById(id);
-        //{
-            //throw new NotImplementedException();
-        //}
     }
 }

@@ -1,4 +1,4 @@
-﻿using CWProject.Models.DtoModels.AmenitiesDto;
+﻿using CWProject.Models.DtoModels.LocationTypeDto;
 using CWProject.Models.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace CWProject.Data.Repositories.Interfaces
 {
-    public interface IAmenitiesRepository
+    public interface ILocationTypeRepository
     {
-        
-        List<Amenities> GetAll { get; }
-        AmenitiesModel GetById(int id);
-        DbSet<Amenities> Amenities { get; }
+        List<LocationTypeModel> GetAllLocations { get; }
+        LocationTypeModel GetLocationById(int Id);
+        DbSet<LocationType> Locations { get; }
         void Save();
-        
     }
 }

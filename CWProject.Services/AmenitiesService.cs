@@ -1,4 +1,5 @@
-﻿using CWProject.Data.Exceptions;
+﻿using AutoMapper;
+using CWProject.Data.Exceptions;
 using CWProject.Data.Repositories.Interfaces;
 using CWProject.Models.DtoModels.AmenitiesDto;
 using CWProject.Models.Models;
@@ -16,12 +17,14 @@ namespace CWProject.Services
     {
         
         private readonly IAmenitiesRepository _amenitiesRepository;
-        public AmenitiesService(IAmenitiesRepository amenitiesRepository)
+        private readonly IMapper _mapper;
+        public AmenitiesService(IAmenitiesRepository amenitiesRepository, IMapper mapper)
         {
             _amenitiesRepository = amenitiesRepository;
+            _mapper = mapper;
         }
-        
-        public List<AmenitiesModel> GetAll() => _amenitiesRepository.GetAll;
+
+        public List<AmenitiesModel> GetAll() => _amenitiesRepository.GetAll.Select(_mapper.Map<AmenitiesModel>).ToList();
 
         public AmenitiesModel GetById(int id) => _amenitiesRepository.GetById(id);
 
@@ -47,8 +50,6 @@ namespace CWProject.Services
 
         public void Update(Amenities amenitiesParm)
         {
-            //throw new NotImplementedException();
-            
             var amenities = _amenitiesRepository.Amenities.Find(amenitiesParm.Id);
 
             if (!string.IsNullOrWhiteSpace(amenitiesParm.Name))
@@ -60,8 +61,6 @@ namespace CWProject.Services
         }
         public void Delete(int id)
         {
-            //throw new NotImplementedException();
-            
                var facility = _amenitiesRepository.Amenities.Find(id);
             if (facility != null)
             {

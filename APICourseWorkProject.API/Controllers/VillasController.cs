@@ -18,7 +18,6 @@ namespace APICourseWorkProject.API.Controllers
         private readonly IMapper _mapper;
 
         
-          
            public VillasController(IVillasService villasService, IMapper mapper)
         {
             _villasService = villasService;

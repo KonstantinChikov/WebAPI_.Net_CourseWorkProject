@@ -17,21 +17,14 @@ namespace CWProject.Data.Repositories
         {
             _appDbContext = appDbContext;
         }
-        public List<VillasModel> GetAll => _appDbContext.Villas
+
+
+        public List<Villas> GetAll => _appDbContext.Villas
                 .Include(x => x.User)
                 .Include(x => x.LocationType)
                 .Include(x => x.VillaAmenities)
                 .ThenInclude(x => x.Amenities)
-                .Select(x => new VillasModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Address = x.Address,
-                    PricePerNight = x.PricePerNight,
-                    User = x.User,
-                    LocationType = x.LocationType,
-                    Amenities = x.VillaAmenities.Select(z => z.Amenities.Name).ToList(),
-                }).ToList();
+                .ToList();
 
         public VillasModel GetById(int id) => _appDbContext.Villas
                 .Include(x => x.VillaAmenities)

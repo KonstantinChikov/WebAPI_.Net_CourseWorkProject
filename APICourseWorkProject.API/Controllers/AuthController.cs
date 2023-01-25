@@ -1,4 +1,5 @@
-﻿using CWProject.Models.DtoModels;
+﻿using AutoMapper;
+using CWProject.Models.DtoModels;
 using CWProject.Models.Models;
 using CWProject.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +11,13 @@ namespace APICourseWorkProject.API.Controllers
     public class AuthController : ControllerBase
     {
 
-        public static User user = new User();   // I have only ONE user for now
-
         private readonly IAuthService _authService;
-        public AuthController(IAuthService authService)
+        private readonly IMapper _mapper;
+
+        public AuthController(IAuthService authService, IMapper mapper)
         {
             _authService = authService;
+            _mapper = mapper;
         }
 
 
@@ -24,6 +26,7 @@ namespace APICourseWorkProject.API.Controllers
         public async Task<ActionResult<User>> Register(UserDto request)
         {
             _authService.CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            var user = _mapper.Map<User>(request);
 
             user.Username = request.UserName;
             user.PasswordHash = passwordHash;
@@ -34,6 +37,7 @@ namespace APICourseWorkProject.API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserDto request)
         {
+            var user = _mapper.Map<User>(request);
             // check if Username is here already
             if (user.Username != request.UserName)
             {
