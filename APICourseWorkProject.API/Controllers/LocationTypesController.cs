@@ -42,7 +42,7 @@ namespace APICourseWorkProject.API.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult CreateFacility([FromBody] LocationTypeCreateModel model)
+        public IActionResult CreateAmenity([FromBody] LocationTypeCreateModel model)
         {
 
             try

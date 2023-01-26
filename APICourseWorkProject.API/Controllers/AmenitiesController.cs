@@ -27,17 +27,17 @@ namespace APICourseWorkProject.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var facilities = _amenitiesService.GetAll();
-            var model = facilities.Select(_mapper.Map<AmenitiesModel>);
-            return Ok(facilities);
+            var amenity = _amenitiesService.GetAll();
+            var model = amenity.Select(_mapper.Map<AmenitiesModel>);
+            return Ok(amenity);
         }
         
         [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var facility = _amenitiesService.GetById(id);
-            var model = _mapper.Map<AmenitiesModel>(facility);
+            var amenity = _amenitiesService.GetById(id);
+            var model = _mapper.Map<AmenitiesModel>(amenity);
             return Ok(model);
         }
 
@@ -46,13 +46,13 @@ namespace APICourseWorkProject.API.Controllers
         public IActionResult CreateFacility([FromBody] AmenitiesCreateModel model)
         {
             // map model to entity
-            var facility = _mapper.Map<Amenities>(model);
+            var amenity = _mapper.Map<Amenities>(model);
 
             try
             {
                 // create user
-                _amenitiesService.Create(facility);
-                return Ok($"You have created successfully a facility. \n Name: {facility.Name}");
+                _amenitiesService.Create(amenity);
+                return Ok($"You have created successfully a facility. \n Name: {amenity.Name}");
             }
             catch (AppException ex)
             {
@@ -65,13 +65,13 @@ namespace APICourseWorkProject.API.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] AmenitiesUpdateModel model)
         {
-            var facility = _mapper.Map<Amenities>(model);
-            facility.Id = id;
+            var amenity = _mapper.Map<Amenities>(model);
+            amenity.Id = id;
 
             try
             {
                 // update facility 
-                _amenitiesService.Update(facility);
+                _amenitiesService.Update(amenity);
                 return Ok("Successfully updated");
             }
             catch (AppException ex)

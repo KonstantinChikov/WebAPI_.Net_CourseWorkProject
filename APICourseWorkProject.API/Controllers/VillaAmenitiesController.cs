@@ -27,8 +27,8 @@ namespace APICourseWorkProject.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var hotelfacilities = _villaAmenitiesService.GetAll();
-            var model = _mapper.Map<IList<VillaAmenitiesModel>>(hotelfacilities);
+            var villaAmenities = _villaAmenitiesService.GetAll();
+            var model = _mapper.Map<IList<VillaAmenitiesModel>>(villaAmenities);
             return Ok(model);
         }
 
@@ -44,13 +44,13 @@ namespace APICourseWorkProject.API.Controllers
                 return Forbid();
 
             // map model to entity
-            var villaamenities = _mapper.Map<VillaAmenities>(model);
+            var villaAmenities = _mapper.Map<VillaAmenities>(model);
 
             try
             {
                 // create user
-                _villaAmenitiesService.Create(villaamenities);
-                return Ok($"You have created successfully mapped them. \n {villaamenities.VillasId} -  {villaamenities.AmenitiesId} ");
+                _villaAmenitiesService.Create(villaAmenities);
+                return Ok($"You have created successfully mapped them. \n {villaAmenities.VillasId} -  {villaAmenities.AmenitiesId} ");
             }
             catch (AppException ex)
             {
@@ -60,16 +60,16 @@ namespace APICourseWorkProject.API.Controllers
         }
 
         [Authorize]
-        [HttpDelete("{id}/{hotelId}")]
-        public IActionResult Delete(int id, int hotelId)
+        [HttpDelete("{id}/{villaId}")]
+        public IActionResult Delete(int id, int villaId)
         {
             int currentUserId = int.Parse(User.Identity.Name);
-            Villas hotelfacility = _villaAmenitiesService.FindVilla(hotelId);
+            Villas villaAmenity = _villaAmenitiesService.FindVilla(villaId);
 
-            if (currentUserId != hotelfacility.User.Id && !User.IsInRole("Admin"))
+            if (currentUserId != villaAmenity.User.Id && !User.IsInRole("Admin"))
                 return Forbid();
 
-            _villaAmenitiesService.Delete(id, hotelId);
+            _villaAmenitiesService.Delete(id, villaId);
             return Ok();
         }
     }

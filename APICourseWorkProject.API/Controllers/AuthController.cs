@@ -46,7 +46,7 @@ namespace APICourseWorkProject.API.Controllers
             var user = _userService.GetByUsername(request.UserName);
 
             // check password
-            if(!_authService.VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+            if(_authService.VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
             {
                 return BadRequest(" Wrong password ");
             }

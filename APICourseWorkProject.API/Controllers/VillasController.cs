@@ -53,7 +53,7 @@ namespace APICourseWorkProject.API.Controllers
             {
                 // create user
                 _villasService.Create(villa, currentUserId);
-                return Ok($"You have created successfully a hotel. \n Name: {villa.Name} ");
+                return Ok($"You have created successfully a villa. \n Name: {villa.Name} ");
             }
             catch (AppException ex)
             {
