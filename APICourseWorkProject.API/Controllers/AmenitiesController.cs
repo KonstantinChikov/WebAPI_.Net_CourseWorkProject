@@ -2,10 +2,8 @@
 using CWProject.Data.Exceptions;
 using CWProject.Models.DtoModels.AmenitiesDto;
 using CWProject.Models.Models;
-using CWProject.Services;
 using CWProject.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APICourseWorkProject.API.Controllers
@@ -31,10 +29,10 @@ namespace APICourseWorkProject.API.Controllers
             var model = amenity.Select(_mapper.Map<AmenitiesModel>);
             return Ok(amenity);
         }
-        
+
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById([FromRoute] int id)
         {
             var amenity = _amenitiesService.GetById(id);
             var model = _mapper.Map<AmenitiesModel>(amenity);
@@ -63,14 +61,14 @@ namespace APICourseWorkProject.API.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] AmenitiesUpdateModel model)
+        public IActionResult Update([FromRoute]int id, [FromBody] AmenitiesUpdateModel model)
         {
             var amenity = _mapper.Map<Amenities>(model);
             amenity.Id = id;
 
             try
             {
-                // update facility 
+                // update amenity 
                 _amenitiesService.Update(amenity);
                 return Ok("Successfully updated");
             }

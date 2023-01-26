@@ -1,13 +1,9 @@
 ﻿using CWProject.Data.Exceptions;
+using CWProject.Data.Repositories;
 using CWProject.Data.Repositories.Interfaces;
 using CWProject.Models.DtoModels.LocationTypeDto;
 using CWProject.Models.Models;
 using CWProject.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CWProject.Services
 {
@@ -48,6 +44,10 @@ namespace CWProject.Services
 
             _locationTypeRepository.Locations.Remove(locationType);
             _locationTypeRepository.Save();
+        }
+        public int GetCount()
+        {
+            return _locationTypeRepository.GetCount();
         }
     }
 }

@@ -2,11 +2,6 @@
 using CWProject.Models.DtoModels.VillasDto;
 using CWProject.Models.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CWProject.Data.Repositories
 {
@@ -43,5 +38,9 @@ namespace CWProject.Data.Repositories
         public User FindUser(int id) => _appDbContext.Users.Where(x => x.Id == id).FirstOrDefault();
         public LocationType FindLocation(int id) => _appDbContext.LocationTypes.Where(x => x.Id == id).FirstOrDefault();
         public void Save() => _appDbContext.SaveChanges();
+        public int GetCount()
+        {
+            return _appDbContext.Set<Villas>().Count();
+        }
     }
 }

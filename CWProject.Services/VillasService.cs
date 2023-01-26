@@ -1,19 +1,11 @@
-﻿using CWProject.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CWProject.Services.Interfaces;
+﻿using AutoMapper;
+using CWProject.Data.Repositories;
+using CWProject.Data.Repositories.Interfaces;
 using CWProject.Models.DtoModels.VillasDto;
 using CWProject.Models.Models;
-using Realms.Sync.Exceptions;
+using CWProject.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using CWProject.Data.Exceptions;
 using AppException = CWProject.Data.Exceptions.AppException;
-using CWProject.Data.Repositories.Interfaces;
-using CWProject.Models.DtoModels.AmenitiesDto;
-using AutoMapper;
 
 namespace CWProject.Services
 {
@@ -30,7 +22,6 @@ namespace CWProject.Services
 
         public Villas Create(Villas villa, int userId)
         {
-            //throw new NotImplementedException();
             if (string.IsNullOrWhiteSpace(villa.Name))
                 throw new AppException("Name is required");
 
@@ -52,7 +43,6 @@ namespace CWProject.Services
         }
         public void Update(Villas villaParam)
         {
-            //throw new NotImplementedException();
             var villa = _villasRepository.Villas
                 .Include(x => x.LocationType)
                 .Where(x => x.Id == villaParam.Id).SingleOrDefault();
@@ -74,19 +64,21 @@ namespace CWProject.Services
         }
         public void Delete(int id)
         {
-            //throw new NotImplementedException();
-            var hotel = _villasRepository.Villas.Find(id);
+            var villa = _villasRepository.Villas.Find(id);
 
-            if (hotel != null)
+            if (villa != null)
             {
-                _villasRepository.Villas.Remove(hotel);
+                _villasRepository.Villas.Remove(villa);
                 _villasRepository.Save();
             }
         }
 
-        
         public Villas FindVilla(int id) => _villasRepository.Villas.Include(x => x.User).SingleOrDefault(x => x.Id == id);
         public List<VillasModel> GetAll() => _villasRepository.GetAll.Select(_mapper.Map<VillasModel>).ToList();
         public VillasModel GetById(int id) => _villasRepository.GetById(id);
+        public int GetCount()
+        {
+            return _villasRepository.GetCount();
+        }
     }
 }

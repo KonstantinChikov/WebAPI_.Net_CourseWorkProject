@@ -4,9 +4,7 @@ using CWProject.Models.DtoModels.VillasDto;
 using CWProject.Models.Models;
 using CWProject.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
 
 namespace APICourseWorkProject.API.Controllers
 {
@@ -34,7 +32,7 @@ namespace APICourseWorkProject.API.Controllers
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById([FromRoute] int id)
         {
             var villas = _villasService.GetById(id);
             var model = _mapper.Map<VillasModel>(villas);
@@ -43,7 +41,7 @@ namespace APICourseWorkProject.API.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult CreateHotel([FromBody] VillasCreateModel model)
+        public IActionResult CreateVilla([FromBody] VillasCreateModel model)
         {
             // map model to entity
             var villa = _mapper.Map<Villas>(model);
@@ -63,18 +61,18 @@ namespace APICourseWorkProject.API.Controllers
         }
         [Authorize]
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] VillasUpdateModel model)
+        public IActionResult Update([FromRoute] int id, [FromBody] VillasUpdateModel model)
         {
-            var hotelChecker = _villasService.FindVilla(id);
+            var villaChecker = _villasService.FindVilla(id);
             var currentUserId = int.Parse(User.Identity.Name);
-            if (currentUserId != hotelChecker.User.Id && !User.IsInRole("Admin"))
+            if (currentUserId != villaChecker.User.Id && !User.IsInRole("Admin"))
                 return Forbid();
 
             var villa = _mapper.Map<Villas>(model);
             villa.Id = id;
             try
             {
-                // update facility 
+                // update amenity 
                 _villasService.Update(villa);
                 return Ok("Successfully updated");
             }
@@ -87,13 +85,14 @@ namespace APICourseWorkProject.API.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromRoute] int id)
         {
             var villa = _villasService.FindVilla(id);
+            /*
             var currentUserId = int.Parse(User.Identity.Name);
             if (currentUserId != villa.User.Id && !User.IsInRole("Admin"))
                 return Forbid();
-
+            */
             _villasService.Delete(id);
             return Ok();
         }

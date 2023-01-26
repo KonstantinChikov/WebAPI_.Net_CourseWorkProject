@@ -1,12 +1,5 @@
 ﻿using CWProject.Models.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace CWProject.Models.DtoModels.VillasDto
 {
@@ -14,8 +7,6 @@ namespace CWProject.Models.DtoModels.VillasDto
     {
         [Required]
         public string Name { get; set; }
-
-        [Column(TypeName = "decimal(18,4)")]
         public decimal PricePerNight { get; set; }
 
         public string Info { get; set; }
@@ -24,15 +15,6 @@ namespace CWProject.Models.DtoModels.VillasDto
 
         public int LocationTypeId { get; set; }
 
-        //One to many
-        [JsonIgnore]
-        public virtual LocationType LocationType { get; set; }
-
-        // One to many
-        public virtual User User { get; set; }
-
-        // Many to many
-        [JsonIgnore]
-        public ICollection<VillaAmenities> VillaAmenities { get; set; }
+        public int UserId { get; set; }
     }
 }

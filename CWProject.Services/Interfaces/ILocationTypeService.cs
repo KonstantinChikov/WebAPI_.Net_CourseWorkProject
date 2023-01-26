@@ -1,10 +1,5 @@
 ﻿using CWProject.Models.DtoModels.LocationTypeDto;
 using CWProject.Models.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CWProject.Services.Interfaces
 {
@@ -15,5 +10,6 @@ namespace CWProject.Services.Interfaces
         LocationType Create(LocationType locationType);
         void Update(LocationType locationType);
         void Delete(int id);
+        int GetCount();
     }
 }

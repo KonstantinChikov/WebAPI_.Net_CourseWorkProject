@@ -1,11 +1,5 @@
-﻿using CWProject.Models.DtoModels.VillaAmenitiesDto;
-using CWProject.Models.Models;
+﻿using CWProject.Models.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CWProject.Data.Repositories.Interfaces
 {
@@ -19,5 +13,6 @@ namespace CWProject.Data.Repositories.Interfaces
         VillaAmenities FindVillaAmenities(int villaId, int amenityId);
         Villas FindVillaAmenitiesForUser(int userId);
         void Save();
+        int GetCount();
     }
 }

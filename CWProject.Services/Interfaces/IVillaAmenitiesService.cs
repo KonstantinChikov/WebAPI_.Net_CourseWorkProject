@@ -1,10 +1,5 @@
 ﻿using CWProject.Models.DtoModels.VillaAmenitiesDto;
 using CWProject.Models.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CWProject.Services.Interfaces
 {
@@ -16,5 +11,6 @@ namespace CWProject.Services.Interfaces
         Villas FindVilla(int userId);
         Villas FindVillaAmenitiesForUser(int userId);
         void Delete(int amenityId, int villaId);
+        int GetCount();
     }
 }

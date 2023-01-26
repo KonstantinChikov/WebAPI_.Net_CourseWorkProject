@@ -4,7 +4,6 @@ using CWProject.Models.DtoModels.LocationTypeDto;
 using CWProject.Models.Models;
 using CWProject.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APICourseWorkProject.API.Controllers
@@ -33,7 +32,7 @@ namespace APICourseWorkProject.API.Controllers
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById([FromRoute] int id)
         {
             var locationType = _locationTypeService.GetById(id);
             var model = _mapper.Map<LocationTypeModel>(locationType);
@@ -42,7 +41,7 @@ namespace APICourseWorkProject.API.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult CreateAmenity([FromBody] LocationTypeCreateModel model)
+        public IActionResult Create([FromBody] LocationTypeCreateModel model)
         {
 
             try
@@ -62,14 +61,14 @@ namespace APICourseWorkProject.API.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] LocationTypeUpdateModel model)
+        public IActionResult Update([FromRoute] int id, [FromBody] LocationTypeUpdateModel model)
         {
             var locationType = _mapper.Map<LocationType>(model);
             locationType.Id = id;
 
             try
             {
-                // update facility 
+                // update amenity 
                 _locationTypeService.Update(locationType);
                 return Ok("Successfully updated");
             }
@@ -82,7 +81,7 @@ namespace APICourseWorkProject.API.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromRoute] int id)
         {
             _locationTypeService.Delete(id);
             return Ok();

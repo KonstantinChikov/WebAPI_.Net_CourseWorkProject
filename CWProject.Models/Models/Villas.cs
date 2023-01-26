@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CWProject.Models.Models.BaseModels;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CWProject.Models.Models.BaseModels;
 
 namespace CWProject.Models.Models
 {

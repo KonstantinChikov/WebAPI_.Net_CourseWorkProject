@@ -5,11 +5,6 @@ using CWProject.Models.DtoModels.AmenitiesDto;
 using CWProject.Models.Models;
 using CWProject.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CWProject.Services
 {
@@ -35,7 +30,7 @@ namespace CWProject.Services
             if (string.IsNullOrWhiteSpace(amenities.Name))
                 throw new AppException("Name is required");
 
-            var facilities = _amenitiesRepository.Amenities
+            var amenity = _amenitiesRepository.Amenities
                 .Include(x => x.VillaAmenities)
                 .ThenInclude(x => x.Villas)
                 .Select(x => new AmenitiesCreateModel()
@@ -61,13 +56,17 @@ namespace CWProject.Services
         }
         public void Delete(int id)
         {
-               var facility = _amenitiesRepository.Amenities.Find(id);
-            if (facility != null)
+               var amenity = _amenitiesRepository.Amenities.Find(id);
+            if (amenity != null)
             {
-                _amenitiesRepository.Amenities.Remove(facility);
+                _amenitiesRepository.Amenities.Remove(amenity);
                 _amenitiesRepository.Save();
             }
             
+        }
+        public int GetCount()
+        {
+            return _amenitiesRepository.GetCount();
         }
     }
 }

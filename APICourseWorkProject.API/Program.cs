@@ -1,18 +1,17 @@
 using CWProject.Data;
-using CWProject.Services;
-using CWProject.Services.Interfaces;
-using System.Data.Common;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.EntityFrameworkCore.Internal;
 using CWProject.Data.Repositories;
 using CWProject.Data.Repositories.Interfaces;
+using CWProject.Data.SeedData;
+using CWProject.Services;
+using CWProject.Services.Interfaces;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using CWProject.Data.SeedData;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +65,10 @@ builder.Services.AddScoped<IVillasRepository, VillasRepository>();
 builder.Services.AddScoped<IAmenitiesRepository, AmenitiesRepository>();
 builder.Services.AddScoped<ILocationTypeRepository, LocationTypeRepository>();
 builder.Services.AddScoped<IVillaAmenitiesRepository, VillaAmenitiesRepository>();
+
+//PDF
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+builder.Services.AddScoped<IPDFReport, PDFReport>();
 
 var app = builder.Build();
 

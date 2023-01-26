@@ -1,12 +1,6 @@
 ﻿using CWProject.Data.Repositories.Interfaces;
-using CWProject.Models.DtoModels.VillaAmenitiesDto;
 using CWProject.Models.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CWProject.Data.Repositories
 {
@@ -34,5 +28,9 @@ namespace CWProject.Data.Repositories
         public Villas FindVillaAmenitiesForUser(int userId) => _appDbContext.Villas.Include(x => x.User)
                                                              .SingleOrDefault(x => x.User.Id == userId);
         public void Save() => _appDbContext.SaveChanges();
+        public int GetCount()
+        {
+            return _appDbContext.Set<VillaAmenities>().Count();
+        }
     }
 }

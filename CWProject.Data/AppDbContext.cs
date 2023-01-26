@@ -1,10 +1,5 @@
 ﻿using CWProject.Models.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CWProject.Data
 {
@@ -21,7 +16,14 @@ namespace CWProject.Data
         public DbSet<VillaAmenities> VillaAmenities { get; set; }
         public DbSet<LocationType> LocationTypes { get; set; }
 
-        //public DbSet<FileCSV> Units { get; set; }
-       
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .Navigation(u => u.Role)
+                .AutoInclude();
+
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

@@ -1,10 +1,5 @@
 ﻿using CWProject.Models.DtoModels.AmenitiesDto;
 using CWProject.Models.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CWProject.Services.Interfaces
 {
@@ -15,7 +10,9 @@ namespace CWProject.Services.Interfaces
         AmenitiesModel GetById(int id);
         Amenities Create(Amenities amenities);
         void Update(Amenities user);
-        void Delete(int id); 
+        void Delete(int id);
+
+        int GetCount();
         
     }
 }

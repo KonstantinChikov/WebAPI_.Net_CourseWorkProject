@@ -2,11 +2,6 @@
 using CWProject.Models.DtoModels.AmenitiesDto;
 using CWProject.Models.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CWProject.Data.Repositories
 {
@@ -35,5 +30,10 @@ namespace CWProject.Data.Repositories
 
         public void Save() => _appDbContext.SaveChanges();
         public DbSet<Amenities> Amenities => _appDbContext.Amenities;
+
+        public int GetCount()
+        {
+            return _appDbContext.Set<Amenities>().Count();
+        }
     }
 }

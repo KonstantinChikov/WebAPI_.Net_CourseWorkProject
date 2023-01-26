@@ -2,10 +2,8 @@
 using CWProject.Data.Exceptions;
 using CWProject.Models.DtoModels.VillaAmenitiesDto;
 using CWProject.Models.Models;
-using CWProject.Services;
 using CWProject.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APICourseWorkProject.API.Controllers
@@ -61,13 +59,13 @@ namespace APICourseWorkProject.API.Controllers
 
         [Authorize]
         [HttpDelete("{id}/{villaId}")]
-        public IActionResult Delete(int id, int villaId)
+        public IActionResult Delete([FromRoute] int id, int villaId)
         {
-            int currentUserId = int.Parse(User.Identity.Name);
-            Villas villaAmenity = _villaAmenitiesService.FindVilla(villaId);
+            //int currentUserId = int.Parse(User.Identity.Name);
+            var villaAmenity = _villaAmenitiesService.FindVilla(villaId);
 
-            if (currentUserId != villaAmenity.User.Id && !User.IsInRole("Admin"))
-                return Forbid();
+            //if (currentUserId != villaAmenity.User.Id && !User.IsInRole("Admin"))
+            //    return Forbid();
 
             _villaAmenitiesService.Delete(id, villaId);
             return Ok();

@@ -17,5 +17,6 @@ namespace CWProject.Data.Repositories.Interfaces
         User FindUser(int id);
         LocationType FindLocation(int id);
         public void Save();
+        int GetCount();
     }
 }
