@@ -7,8 +7,8 @@ namespace CWProject.Services.Interfaces
     {
         List<LocationTypeModel> GetAll();
         LocationTypeModel GetById(int id);
-        LocationType Create(LocationType locationType);
-        void Update(LocationType locationType);
+        LocationTypeModel Create(LocationTypeCreateModel model);
+        void Update(int id, LocationTypeUpdateModel model);
         void Delete(int id);
         int GetCount();
     }

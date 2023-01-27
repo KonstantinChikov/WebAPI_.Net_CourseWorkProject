@@ -1,4 +1,6 @@
-﻿using CWProject.Models.Models;
+﻿using CWProject.Models.DtoModels.AmenitiesDto;
+using CWProject.Models.DtoModels.LocationTypeDto;
+using CWProject.Models.Models;
 
 namespace CWProject.Models.DtoModels.VillasDto
 {
@@ -10,13 +12,8 @@ namespace CWProject.Models.DtoModels.VillasDto
 
         public string Address { get; set; }
 
-        // One to many
-        public virtual LocationType LocationType { get; set; }
+        public LocationTypeModel LocationType { get; set; }
 
-        // One to many
-        public virtual User User { get; set; }
-
-        // Many to many
-        public IList<string> Amenities { get; set; }
+        public UserDto User { get; set; }
     }
 }

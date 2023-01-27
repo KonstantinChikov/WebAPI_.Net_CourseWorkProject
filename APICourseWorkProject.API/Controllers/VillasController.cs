@@ -43,15 +43,11 @@ namespace APICourseWorkProject.API.Controllers
         [HttpPost]
         public IActionResult CreateVilla([FromBody] VillasCreateModel model)
         {
-            // map model to entity
-            var villa = _mapper.Map<Villas>(model);
-            var currentUserId = int.Parse(User.Identity.Name);
-
             try
             {
                 // create user
-                _villasService.Create(villa, currentUserId);
-                return Ok($"You have created successfully a villa. \n Name: {villa.Name} ");
+                _villasService.Create(model);
+                return Ok($"You have created successfully a villa. \n Name: {model.Name} ");
             }
             catch (AppException ex)
             {
@@ -63,17 +59,10 @@ namespace APICourseWorkProject.API.Controllers
         [HttpPut("{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] VillasUpdateModel model)
         {
-            var villaChecker = _villasService.FindVilla(id);
-            var currentUserId = int.Parse(User.Identity.Name);
-            if (currentUserId != villaChecker.User.Id && !User.IsInRole("Admin"))
-                return Forbid();
-
-            var villa = _mapper.Map<Villas>(model);
-            villa.Id = id;
             try
             {
                 // update amenity 
-                _villasService.Update(villa);
+                _villasService.Update(id, model);
                 return Ok("Successfully updated");
             }
             catch (AppException ex)
@@ -88,11 +77,6 @@ namespace APICourseWorkProject.API.Controllers
         public IActionResult Delete([FromRoute] int id)
         {
             var villa = _villasService.FindVilla(id);
-            /*
-            var currentUserId = int.Parse(User.Identity.Name);
-            if (currentUserId != villa.User.Id && !User.IsInRole("Admin"))
-                return Forbid();
-            */
             _villasService.Delete(id);
             return Ok();
         }

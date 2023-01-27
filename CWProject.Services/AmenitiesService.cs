@@ -23,36 +23,23 @@ namespace CWProject.Services
 
         public AmenitiesModel GetById(int id) => _amenitiesRepository.GetById(id);
 
-        public Amenities Create(Amenities amenities)
+        public AmenitiesModel Create(AmenitiesCreateModel model)
         {
-            throw new NotImplementedException();
-            
-            if (string.IsNullOrWhiteSpace(amenities.Name))
-                throw new AppException("Name is required");
-
-            var amenity = _amenitiesRepository.Amenities
-                .Include(x => x.VillaAmenities)
-                .ThenInclude(x => x.Villas)
-                .Select(x => new AmenitiesCreateModel()
-                {
-                    Name = x.Name,
-                }).Where(x => x.Name == amenities.Name).SingleOrDefault();
-            _amenitiesRepository.Amenities.Add(amenities);
+            var amenity = _mapper.Map<Amenities>(model);
+            _amenitiesRepository.Amenities.Add(amenity);
             _amenitiesRepository.Save();
-            return amenities;
+            return _mapper.Map<AmenitiesModel>(amenity);
             
         }
 
-        public void Update(Amenities amenitiesParm)
+        public void Update(int id, AmenitiesUpdateModel model)
         {
-            var amenities = _amenitiesRepository.Amenities.Find(amenitiesParm.Id);
+            var amenities = _amenitiesRepository.Amenities.Find(id);
 
-            if (!string.IsNullOrWhiteSpace(amenitiesParm.Name))
-                amenities.Name = amenitiesParm.Name;
+            _mapper.Map(model, amenities);
 
             _amenitiesRepository.Amenities.Update(amenities);
             _amenitiesRepository.Save();
-            
         }
         public void Delete(int id)
         {

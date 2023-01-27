@@ -8,8 +8,8 @@ namespace CWProject.Services.Interfaces
         
         List<AmenitiesModel> GetAll();
         AmenitiesModel GetById(int id);
-        Amenities Create(Amenities amenities);
-        void Update(Amenities user);
+        AmenitiesModel Create(AmenitiesCreateModel model);
+        void Update(int id, AmenitiesUpdateModel model);
         void Delete(int id);
 
         int GetCount();

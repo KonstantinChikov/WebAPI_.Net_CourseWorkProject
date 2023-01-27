@@ -1,4 +1,5 @@
-﻿using CWProject.Data.Exceptions;
+﻿using AutoMapper;
+using CWProject.Data.Exceptions;
 using CWProject.Data.Repositories;
 using CWProject.Data.Repositories.Interfaces;
 using CWProject.Models.DtoModels.LocationTypeDto;
@@ -10,28 +11,28 @@ namespace CWProject.Services
     public class LocationTypeService : ILocationTypeService
     {
         private readonly ILocationTypeRepository _locationTypeRepository;
-        public LocationTypeService(ILocationTypeRepository locationTypeRepository)
+        private readonly IMapper _mapper;
+        public LocationTypeService(ILocationTypeRepository locationTypeRepository, IMapper mapper)
         {
             _locationTypeRepository = locationTypeRepository;
+            _mapper = mapper;
         }
 
         public List<LocationTypeModel> GetAll() => _locationTypeRepository.GetAllLocations;
 
-        public LocationTypeModel GetById(int Id) => _locationTypeRepository.GetLocationById(Id);
-        public LocationType Create(LocationType location)
+        public LocationTypeModel GetById(int Id) => _mapper.Map<LocationTypeModel>(_locationTypeRepository.GetLocationById(Id));
+        public LocationTypeModel Create(LocationTypeCreateModel model)
         {
-            if (string.IsNullOrWhiteSpace(location.Name))
-                throw new AppException("Name is required");;
-
-            _locationTypeRepository.Locations.Add(location);
+            var locType = _mapper.Map<LocationType>(model);
+            _locationTypeRepository.Locations.Add(locType);
             _locationTypeRepository.Save();
-            return location;
+            return _mapper.Map<LocationTypeModel>(locType);
         }
-        public void Update(LocationType locationParam)
+        public void Update(int id, LocationTypeUpdateModel model)
         {
-            var location = _locationTypeRepository.Locations.Find(locationParam.Id);
-            if (!string.IsNullOrWhiteSpace(locationParam.Name))
-                location.Name = locationParam.Name;
+            var location = _locationTypeRepository.Locations.Find(id);
+
+            _mapper.Map(model, location);
 
             _locationTypeRepository.Locations.Update(location);
             _locationTypeRepository.Save();

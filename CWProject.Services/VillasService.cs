@@ -20,44 +20,23 @@ namespace CWProject.Services
             _mapper = mapper;
         }
 
-        public Villas Create(Villas villa, int userId)
+        public VillasModel Create(VillasCreateModel model)
         {
-            if (string.IsNullOrWhiteSpace(villa.Name))
-                throw new AppException("Name is required");
-
-            if (string.IsNullOrWhiteSpace(villa.Address))
-                throw new AppException("Name is required");
-
-            if (villa.PricePerNight == 0m)
-                throw new AppException("Price is required");
-
-            if (villa.LocationTypeId == 0)
-                throw new AppException("LocationTypeId is required");
-
-            villa.User = _villasRepository.FindUser(userId);
-            villa.LocationType = _villasRepository.FindLocation(villa.Id);
+            var villa = _mapper.Map<Villas>(model);
+            villa.User = _villasRepository.FindUser(model.UserId);
+            villa.LocationType = _villasRepository.FindLocation(model.LocationTypeId);
 
             _villasRepository.Villas.Add(villa);
             _villasRepository.Save();
-            return villa;
+            return _mapper.Map<VillasModel>(villa);
         }
-        public void Update(Villas villaParam)
+        public void Update(int id, VillasUpdateModel model)
         {
             var villa = _villasRepository.Villas
                 .Include(x => x.LocationType)
-                .Where(x => x.Id == villaParam.Id).SingleOrDefault();
+                .Where(x => x.Id == id).SingleOrDefault();
 
-            if (!string.IsNullOrWhiteSpace(villaParam.Name))
-                villa.Name = villaParam.Name;
-
-            if (villaParam.PricePerNight == 0m)
-                villa.PricePerNight = villa.PricePerNight;
-
-            if (!string.IsNullOrWhiteSpace(villaParam.Address))
-                 villa.Address = villaParam.Address;
-
-            if (villaParam.LocationTypeId != 0)
-                 villa.LocationTypeId = villaParam.LocationTypeId;
+            _mapper.Map(model, villa);
 
             _villasRepository.Villas.Update(villa);
             _villasRepository.Save();
@@ -75,10 +54,7 @@ namespace CWProject.Services
 
         public Villas FindVilla(int id) => _villasRepository.Villas.Include(x => x.User).SingleOrDefault(x => x.Id == id);
         public List<VillasModel> GetAll() => _villasRepository.GetAll.Select(_mapper.Map<VillasModel>).ToList();
-        public VillasModel GetById(int id) => _villasRepository.GetById(id);
-        public int GetCount()
-        {
-            return _villasRepository.GetCount();
-        }
+        public VillasModel GetById(int id) => _mapper.Map<VillasModel>(_villasRepository.GetById(id));
+        public int GetCount() => _villasRepository.GetCount();
     }
 }

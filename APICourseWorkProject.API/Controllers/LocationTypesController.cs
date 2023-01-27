@@ -43,14 +43,11 @@ namespace APICourseWorkProject.API.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] LocationTypeCreateModel model)
         {
-
             try
             {
-                // map model to entity
-                var locationType = _mapper.Map<LocationType>(model);
                 // create user
-                _locationTypeService.Create(locationType);
-                return Ok($"You have created successfully a amenity. \n Name: {locationType.Name} \n");
+                _locationTypeService.Create(model);
+                return Ok($"You have created successfully a amenity. \n Name: {model.Name} \n");
             }
             catch (AppException ex)
             {
@@ -63,13 +60,10 @@ namespace APICourseWorkProject.API.Controllers
         [HttpPut("{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] LocationTypeUpdateModel model)
         {
-            var locationType = _mapper.Map<LocationType>(model);
-            locationType.Id = id;
-
             try
             {
                 // update amenity 
-                _locationTypeService.Update(locationType);
+                _locationTypeService.Update(id, model);
                 return Ok("Successfully updated");
             }
             catch (AppException ex)

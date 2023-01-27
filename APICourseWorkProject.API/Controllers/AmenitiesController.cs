@@ -43,14 +43,11 @@ namespace APICourseWorkProject.API.Controllers
         [HttpPost]
         public IActionResult CreateFacility([FromBody] AmenitiesCreateModel model)
         {
-            // map model to entity
-            var amenity = _mapper.Map<Amenities>(model);
-
             try
             {
                 // create user
-                _amenitiesService.Create(amenity);
-                return Ok($"You have created successfully a facility. \n Name: {amenity.Name}");
+                _amenitiesService.Create(model);
+                return Ok($"You have created successfully a facility. \n Name: {model.Name}");
             }
             catch (AppException ex)
             {
@@ -63,13 +60,10 @@ namespace APICourseWorkProject.API.Controllers
         [HttpPut("{id}")]
         public IActionResult Update([FromRoute]int id, [FromBody] AmenitiesUpdateModel model)
         {
-            var amenity = _mapper.Map<Amenities>(model);
-            amenity.Id = id;
-
             try
             {
                 // update amenity 
-                _amenitiesService.Update(amenity);
+                _amenitiesService.Update(id, model);
                 return Ok("Successfully updated");
             }
             catch (AppException ex)

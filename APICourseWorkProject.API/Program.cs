@@ -48,9 +48,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-//AutoMapper
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
-
 // services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -65,6 +62,9 @@ builder.Services.AddScoped<IVillasRepository, VillasRepository>();
 builder.Services.AddScoped<IAmenitiesRepository, AmenitiesRepository>();
 builder.Services.AddScoped<ILocationTypeRepository, LocationTypeRepository>();
 builder.Services.AddScoped<IVillaAmenitiesRepository, VillaAmenitiesRepository>();
+
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
 //PDF
 builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));

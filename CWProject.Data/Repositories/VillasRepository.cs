@@ -21,19 +21,11 @@ namespace CWProject.Data.Repositories
                 .ThenInclude(x => x.Amenities)
                 .ToList();
 
-        public VillasModel GetById(int id) => _appDbContext.Villas
+        public Villas GetById(int id) => _appDbContext.Villas
                 .Include(x => x.VillaAmenities)
-                .ThenInclude(x => x.Villas)
-                .Select(x => new VillasModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Address = x.Address,
-                    PricePerNight = x.PricePerNight,
-                    User = x.User,
-                    LocationType = x.LocationType,
-                    Amenities = x.VillaAmenities.Select(z => z.Amenities.Name).ToList()
-                }).Where(x => x.Id == id).SingleOrDefault();
+                .Include(x => x.LocationType)
+                .Include(x => x.User)
+                .Where(x => x.Id == id).SingleOrDefault();
         public DbSet<Villas> Villas => _appDbContext.Villas;
         public User FindUser(int id) => _appDbContext.Users.Where(x => x.Id == id).FirstOrDefault();
         public LocationType FindLocation(int id) => _appDbContext.LocationTypes.Where(x => x.Id == id).FirstOrDefault();

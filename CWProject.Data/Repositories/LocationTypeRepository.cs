@@ -19,17 +19,11 @@ namespace CWProject.Data.Repositories
             {
                 Id = x.Id,
                 Name = x.Name,
-                Villas = x.Villas.Select(z => z.Name).ToList(),
             }).ToList();
 
-        public LocationTypeModel GetLocationById(int Id) => _appDbContext.LocationTypes
+        public LocationType GetLocationById(int Id) => _appDbContext.LocationTypes
                 .Include(x => x.Villas)
-                .Select(x => new LocationTypeModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Villas = x.Villas.Select(z => z.Name).ToList(),
-                }).Where(x => x.Id == Id).SingleOrDefault();
+                .Where(x => x.Id == Id).SingleOrDefault();
         public DbSet<LocationType> Locations => _appDbContext.LocationTypes;
         public void Save() => _appDbContext.SaveChanges();
         public int GetCount()

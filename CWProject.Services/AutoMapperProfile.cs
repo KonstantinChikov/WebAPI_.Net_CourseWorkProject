@@ -12,15 +12,23 @@ namespace CWProject.Services
     {
         public AutoMapperProfile()
         {
+            CreateMap<AmenitiesCreateModel, Amenities>();
             CreateMap<Amenities, AmenitiesModel>();
+            CreateMap<AmenitiesUpdateModel, Amenities>();
 
+            CreateMap<VillasCreateModel, Villas>();
             CreateMap<Villas, VillasModel>();
+            CreateMap<VillasUpdateModel, Villas>();
 
+            CreateMap<VillaAmenitiesCreateModel, VillaAmenities>();
             CreateMap<VillaAmenities, VillaAmenitiesModel>();
 
+            CreateMap<LocationTypeCreateModel, LocationType>();
             CreateMap<LocationType, LocationTypeModel>();
+            CreateMap<LocationTypeUpdateModel, LocationType>();
 
             CreateMap<UserDto, User>();
+            CreateMap<User, UserDto>();
         }
     }
 }

@@ -7,5 +7,7 @@ namespace CWProject.Services.Interfaces
         bool ExistsByUsername(string username);
 
         User GetByUsername(string username);
+
+        User GetById(int id);
     }
 }
